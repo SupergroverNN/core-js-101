@@ -2,7 +2,7 @@ const assert = require('assert');
 const tasks = require('../src/02-numbers-tasks');
 it.optional = require('../extensions/it-optional');
 
-describe('02-numbers-tasks', () => {
+describe.only('02-numbers-tasks', () => {
   it.optional('getRectangleArea should return a square of rectangle', () => {
     assert.equal(50, tasks.getRectangleArea(5, 10));
     assert.equal(25, tasks.getRectangleArea(5, 5));
