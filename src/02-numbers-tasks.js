@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* *******************************************************************************************
  *                                                                                           *
  * Plese read the following tutorial before implementing tasks:                              *
@@ -59,7 +60,7 @@ function getCicleCircumference(radius) {
  */
 function getAverage(value1, value2) {
   if (value1 !== undefined && value2 !== undefined) {
-    return (value1 + value2) / 2;
+    return (value1 / 2 + value2 / 2);
   }
   throw new Error('Not implemented');
 }
@@ -80,10 +81,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  if (true) {
-    return (((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)) ** 0.5);
-  }
-  throw new Error('Not implemented');
+  return (((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)) ** 0.5);
 }
 
 /**
@@ -98,18 +96,9 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   x + 8 = 0       => -8
  *   5*x = 0         => 0
  */
-function getLinearEquationRoot(a, b) { // 5 -10
-  let i = 0;
-  while (true) {
-    if (i * a + b === 0) {
-      return i;
-    }
-    if (a > b) {
-      i += 1;
-    } else {
-      i -= 1;
-    }
-  }
+
+function getLinearEquationRoot(a, b) {
+  return -b / a;
 }
 
 
@@ -131,8 +120,11 @@ function getLinearEquationRoot(a, b) { // 5 -10
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+  const p = x1 * x2 + y1 * y2;
+  const m1 = Math.sqrt(x1 ** 2 + y1 ** 2);
+  const m2 = Math.sqrt(x2 ** 2 + y2 ** 2);
+  return Math.acos(p / (m1 * m2));
 }
 
 /**
@@ -181,8 +173,8 @@ function parseNumberFromString(value) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelipidedDiagonal(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getParallelipidedDiagonal(a, b, c) {
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
 
 /**
@@ -202,8 +194,9 @@ function getParallelipidedDiagonal(/* a, b, c */) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  const tmp = pow > 0 ? num / (10 ** pow) : num;
+  return Math.round(tmp.toFixed(pow)) * (10 ** pow);
 }
 
 /**
@@ -223,8 +216,14 @@ function roundToPowerOfTen(/* num, pow */) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+function isPrime(n) {
+  const end = Math.sqrt(n);
+  for (let i = 2; i <= end; i += 1) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return n > 1;
 }
 
 /**
@@ -242,8 +241,11 @@ function isPrime(/* n */) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  if (!isNaN(Number(value)) || value instanceof Number) {
+    return Number(value);
+  }
+  return def;
 }
 
 module.exports = {
