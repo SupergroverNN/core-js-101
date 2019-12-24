@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 /* *********************************************************************************************
  *                                                                                             *
@@ -167,6 +168,11 @@ function retry(func, attempts) {
 function logger(/* func, logFunc */) {
   throw new Error('Not implemented');
 }
+// return function Fn(...args) {
+//   console.log(args);
+//   console.log(func, logFunc);
+//   return 1;
+// };
 
 
 /**
