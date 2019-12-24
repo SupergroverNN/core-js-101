@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-continue */
 /* eslint-disable no-loop-func */
 /* *************************************************************************************************
@@ -417,8 +418,24 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const arr = pathes.map((item) => item.split('/').filter((el) => !el.includes('.')));
+  arr.forEach((item) => item[0].replace('', '/'));
+  let count = 0;
+  const res = [];
+  while (count <= arr.length) {
+    const item = arr[0][count];
+    for (let i = 0; i < arr.length; i += 1) {
+      if (arr[i][count] === item) {
+        console.log();
+      } else {
+        return res.length ? `${res.join('/')}/` : '';
+      }
+    }
+    res.push(item);
+    count += 1;
+  }
+  return `${res.join('/')}/`;
 }
 
 /**
