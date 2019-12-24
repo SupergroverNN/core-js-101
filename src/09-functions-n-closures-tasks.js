@@ -165,14 +165,15 @@ function retry(func, attempts) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  return function Fn(...args) {
+    const str = JSON.stringify(args).trim().slice(1, -1);
+    logFunc(`${func.name}(${str}) starts`);
+    const res = func(...args);
+    logFunc(`${func.name}(${str}) ends`);
+    return res;
+  };
 }
-// return function Fn(...args) {
-//   console.log(args);
-//   console.log(func, logFunc);
-//   return 1;
-// };
 
 
 /**
@@ -188,8 +189,10 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return function Fn(...args) {
+    return fn(...args1.concat(...args));
+  };
 }
 
 
@@ -210,8 +213,12 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let value = startFrom - 1;
+  return function Fn() {
+    value += 1;
+    return value;
+  };
 }
 
 
